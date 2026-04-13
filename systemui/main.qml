@@ -12,9 +12,10 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import com.alientek.qmlcomponents 1.0
 Window {
-    width: Screen.desktopAvailableWidth
-    height: Screen.desktopAvailableHeight
+    width: Screen.width
+    height: Screen.height
     visible: true
+    visibility: Window.FullScreen
     property bool rotateLeft90: true
     property real scaleFfactor: rotatedStage.width / 720
     flags: Qt.FramelessWindowHint
