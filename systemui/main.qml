@@ -12,10 +12,17 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import com.alientek.qmlcomponents 1.0
 Window {
-    width: Screen.desktopAvailableWidth
-    height: Screen.desktopAvailableHeight
+    width: Screen.width
+    height: Screen.height
     visible: true
-    property real scaleFfactor: desktop.width / 720
+    visibility: Window.FullScreen
+    property bool rotateLeft90: true
+    property real scaleFfactor: rotatedStage.width / 720
+    property real rotatedContentWidth: rotateLeft90 ? rotatedStage.height : rotatedStage.width
+    property real rotatedContentHeight: rotateLeft90 ? rotatedStage.width : rotatedStage.height
+    property real fitScale: Math.min(
+                                desktop.width / Math.max(rotatedContentWidth, 1),
+                                desktop.height / Math.max(rotatedContentHeight, 1))
     flags: Qt.FramelessWindowHint
     x: 0
     y: 0
@@ -43,7 +50,18 @@ Window {
     }
 
     Item {
+        id: rotatedStage
+        anchors.centerIn: parent
+        width: rotateLeft90 ? desktop.height : desktop.width
+        height: rotateLeft90 ? desktop.width : desktop.height
+        rotation: rotateLeft90 ? -90 : 0
+        scale: fitScale
+        transformOrigin: Item.Center
+    }
+
+    Item {
         id: rootItem
+        parent: rotatedStage
         anchors.fill: parent
         Image {
             id: phonebg
@@ -138,22 +156,24 @@ Window {
 
     SystemTime {
         id: systemTime
+        parent: rotatedStage
         enabled: rootItem.enabled
     }
 
     RowLayout {
+        parent: rotatedStage
         visible: true
-        height: desktop.width / 720 * 64
+        height: rotatedStage.width / 720 * 64
         anchors.left: parent.left
-        anchors.leftMargin: desktop.width / 720 * 64
+        anchors.leftMargin: rotatedStage.width / 720 * 64
         anchors.right: parent.right
-        anchors.rightMargin: desktop.width / 720 * 64
+        anchors.rightMargin: rotatedStage.width / 720 * 64
         Text {
             id: timeText
             text: systemTime.system_time
             font.bold: true
             color: "white"
-            font.pixelSize: desktop.width / 720 * 30
+            font.pixelSize: rotatedStage.width / 720 * 30
             font.letterSpacing: 3
             Layout.alignment: Qt.AlignVCenter
         }
@@ -164,7 +184,7 @@ Window {
             font.bold: false
             color: "white"
             visible: false
-            font.pixelSize: desktop.width / 720 * 15
+            font.pixelSize: rotatedStage.width / 720 * 15
             font.letterSpacing: 3
             Layout.alignment: Qt.AlignVCenter
         }
@@ -175,7 +195,7 @@ Window {
             font.bold: false
             visible: false
             color: "white"
-            font.pixelSize: desktop.width / 720 * 15
+            font.pixelSize: rotatedStage.width / 720 * 15
             font.letterSpacing: 3
             Layout.alignment: Qt.AlignVCenter
         }
