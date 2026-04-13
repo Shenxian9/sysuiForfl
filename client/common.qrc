@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Dock.qml</file>
+        <file>CustomRectangle.qml</file>
+        <file>CustomSwitch.qml</file>
+        <file>Client.qml</file>
+        <file>SystemTime.qml</file>
+    </qresource>
+</RCC>

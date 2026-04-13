@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/folder.png</file>
+        <file>icons/file.png</file>
+        <file>icons/folder_checked.png</file>
+        <file>icons/folder_unchecked.png</file>
+        <file>icons/latest_checked.png</file>
+        <file>icons/latest_uncheck.png</file>
+    </qresource>
+</RCC>

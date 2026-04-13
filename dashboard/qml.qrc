@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>AppMainBody.qml</file>
+        <file>DashBoard.qml</file>
+        <file>DashboardLayout.qml</file>
+    </qresource>
+</RCC>

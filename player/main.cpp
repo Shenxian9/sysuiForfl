@@ -1,0 +1,36 @@
+#include <QGuiApplication>
+#include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include "systemuicommonapiclient.h"
+#include "videooutput.h"
+#include "mediaplayer.h"
+#include "medialistmodel.h"
+#include "albumimage.h"
+
+int main(int argc, char *argv[])
+{
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+#endif
+    QGuiApplication app(argc, argv);
+    qmlRegisterType<SystemUICommonApiClient>("com.alientek.qmlcomponents", 1, 0, "SystemUICommonApiClient");
+    qmlRegisterType<MediaPlayer>("com.alientek.qmlcomponents", 1, 0, "MediaPlayer");
+    qmlRegisterType<VideoOutput>("com.alientek.qmlcomponents", 1, 0, "VideoOutput");
+    qmlRegisterType<MediaListModel>("com.alientek.qmlcomponents", 1, 0, "AMediaList");
+    qmlRegisterType<AlbumImage>("com.alientek.qmlcomponents", 1, 0, "AlbumImage");
+    QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("appCurrtentDir", QCoreApplication::applicationDirPath());
+    const QUrl url(QStringLiteral("qrc:/main.qml"));
+    QObject::connect(
+        &engine,
+        &QQmlApplicationEngine::objectCreated,
+        &app,
+        [url](QObject *obj, const QUrl &objUrl) {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
+    engine.load(url);
+
+    return app.exec();
+}
