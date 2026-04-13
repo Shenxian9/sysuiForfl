@@ -9,6 +9,8 @@
 
 int main(int argc, char *argv[])
 {
+    // Rotate full UI 90° to the left for portrait-mounted development boards (eglfs).
+    qputenv("QT_QPA_EGLFS_ROTATION", "270");
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 #endif
