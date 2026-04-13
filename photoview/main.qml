@@ -13,12 +13,23 @@ Window {
     visible: true
     width: Screen.desktopAvailableWidth
     height: Screen.desktopAvailableHeight
+    property bool rotateLeft90: true
     id: window
     flags: Qt.FramelessWindowHint
     x: 0
     y: 0
     color: "transparent"
-    Client {
-        programmerName: "photoview"
+    Item {
+        width: window.rotateLeft90 ? window.height : window.width
+        height: window.rotateLeft90 ? window.width : window.height
+        x: 0
+        y: window.rotateLeft90 ? window.width : 0
+        rotation: window.rotateLeft90 ? -90 : 0
+        transformOrigin: Item.TopLeft
+
+        Client {
+            anchors.fill: parent
+            programmerName: "photoview"
+        }
     }
 }
