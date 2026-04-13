@@ -18,6 +18,11 @@ Window {
     visibility: Window.FullScreen
     property bool rotateLeft90: true
     property real scaleFfactor: rotatedStage.width / 720
+    property real rotatedContentWidth: rotateLeft90 ? rotatedStage.height : rotatedStage.width
+    property real rotatedContentHeight: rotateLeft90 ? rotatedStage.width : rotatedStage.height
+    property real fitScale: Math.min(
+                                desktop.width / Math.max(rotatedContentWidth, 1),
+                                desktop.height / Math.max(rotatedContentHeight, 1))
     flags: Qt.FramelessWindowHint
     x: 0
     y: 0
@@ -50,6 +55,8 @@ Window {
         width: rotateLeft90 ? desktop.height : desktop.width
         height: rotateLeft90 ? desktop.width : desktop.height
         rotation: rotateLeft90 ? -90 : 0
+        scale: fitScale
+        transformOrigin: Item.Center
     }
 
     Item {
