@@ -18,15 +18,15 @@ Item {
     }
 
     ColumnLayout {
-        width: desktop.width
-        height: desktop.height / 3 * 2
+        width: desktop.uiWidth
+        height: desktop.uiHeight / 3 * 2
         anchors.top: parent.top
         anchors.topMargin: 64 * scaleFfactor
         GridView {
             Layout.alignment: Qt.AlignHCenter
             Layout.fillHeight: true
-            width:  desktop.width - desktop.width / 13
-            height: desktop.width / 4 * 5  // 5 column
+            width:  desktop.uiWidth - desktop.uiWidth / 13
+            height: desktop.uiWidth / 4 * 5  // 5 column
             id: item_gridView
             visible: true
             interactive: false
@@ -83,11 +83,11 @@ Item {
 
             Text {
                 anchors.bottom: parent.bottom
-                anchors.bottomMargin: desktop.width / 720 * 5
+                anchors.bottomMargin: desktop.uiWidth / 720 * 5
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: apkName
                 color: "white"
-                font.pixelSize: desktop.width / 720 * 25
+                font.pixelSize: desktop.uiWidth / 720 * 25
                 font.bold: true
             }
         }
