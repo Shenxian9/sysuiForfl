@@ -1,6 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QProcess>
+#include <QTimer>
 #include "systemuicommonapiclient.h"
 
 int main(int argc, char *argv[])
@@ -12,6 +14,13 @@ int main(int argc, char *argv[])
     qmlRegisterType<SystemUICommonApiClient>("com.alientek.qmlcomponents", 1, 0, "SystemUICommonApiClient");
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("appCurrtentDir", QCoreApplication::applicationDirPath());
+
+    const QString configStudioPath = QStringLiteral("/userdata/ConfigStudio");
+    const bool launched = QProcess::startDetached(configStudioPath);
+    if (launched) {
+        QTimer::singleShot(0, &app, &QCoreApplication::quit);
+    }
+
     const QUrl url(QStringLiteral("qrc:/main.qml"));
     QObject::connect(
         &engine,
