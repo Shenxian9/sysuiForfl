@@ -19,6 +19,6 @@ Window {
     y: 0
     color: "transparent"
     Client {
-        programmerName: "configstudio"
+        programmerName: "template"
     }
 }

@@ -12,5 +12,12 @@ Item {
     Rectangle {
         anchors.fill: parent
         color: "white"
+
+        Text {
+            anchors.centerIn: parent
+            text: "正在启动 ConfigStudio..."
+            color: "#202020"
+            font.pixelSize: 28
+        }
     }
 }
